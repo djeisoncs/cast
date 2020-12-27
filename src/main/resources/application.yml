@@ -1,0 +1,39 @@
+####### SPRING #######
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  flyway:
+    enabled: false
+
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    compatibility-verifier:
+      enabled: false
+
+####### SERVER #######
+server:
+  port: 8080
+  max-http-header-size: 65536
+
+####### LOGS #######
+logging:
+  file:
+    max-size: 10MB
+    max-history: 2
+  pattern:
+    dateformat: dd/MM/yyyy HH:mm:ss.SSS
+
+####### CAST #######
+cast:
+  versao: 1.0
+  flyway-ativo: true
+  security:
+    jwt:
+      key: DC0265324A94D13FD7E271CC2AB9BAD97C016D71849A3AF3EF056045815BDFABBCB716E3AC3AFD330469C9BE010BAD271DF5E277246114B38F3B367FFE0E1CE1
+      issuer: cast-issuer
