@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="ContatoCRMSuiteTest">
+    <test name="ContatoCRMSuiteTest">
+        <classes>
+            <class name="br.com.cast.avaliacao.test.service.CategoriaServiceTest"/>
+        </classes>
+    </test>
+</suite>

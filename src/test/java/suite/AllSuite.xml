@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="castAllSuite">
+    <suite-files>
+        <suite-file path="avaliacao/CategoriaSuiteTest.xml"/>
+        <suite-file path="avaliacao/CursoSuiteTest.xml"/>
+    </suite-files>
+</suite>
