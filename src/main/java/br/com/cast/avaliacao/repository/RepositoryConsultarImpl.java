@@ -2,6 +2,7 @@ package br.com.cast.avaliacao.repository;
 
 import br.com.cast.avaliacao.anotacoes.EntityProperties;
 import br.com.cast.avaliacao.dto.PaginacaoResultado;
+import br.com.cast.avaliacao.model.Entidade;
 import br.com.cast.avaliacao.paginacao.Filtro;
 import br.com.cast.avaliacao.paginacao.Operacao;
 import br.com.cast.avaliacao.paginacao.Paginacao;
@@ -28,7 +29,7 @@ import java.util.stream.Stream;
  * Created by djeison.cassimiro on 26/12/2020
  */
 @Slf4j
-public abstract class RepositoryConsultarImpl<E extends AbstractPersistable> implements IRepositoryConsultar<E> {
+public abstract class RepositoryConsultarImpl<E extends Entidade> implements IRepositoryConsultar<E> {
 
     @Autowired
     private EntityManager entityManager;

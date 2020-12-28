@@ -1,8 +1,8 @@
 package br.com.cast.avaliacao.service.interfaces;
 
 import br.com.cast.avaliacao.dto.PaginacaoResultado;
+import br.com.cast.avaliacao.model.Entidade;
 import br.com.cast.avaliacao.paginacao.Paginacao;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by djeison.cassimiro on 27/12/2020
  */
-public interface IServiceConsultar<E extends AbstractPersistable> {
+public interface IServiceConsultar<E extends Entidade> {
 
     E get(Serializable id);
 

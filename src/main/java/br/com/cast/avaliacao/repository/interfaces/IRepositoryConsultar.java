@@ -1,8 +1,8 @@
 package br.com.cast.avaliacao.repository.interfaces;
 
 import br.com.cast.avaliacao.dto.PaginacaoResultado;
+import br.com.cast.avaliacao.model.Entidade;
 import br.com.cast.avaliacao.paginacao.Paginacao;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Selection;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by djeison.cassimiro on 26/12/2020
  */
-public interface IRepositoryConsultar<O extends AbstractPersistable>  {
+public interface IRepositoryConsultar<O extends Entidade>  {
 
     O get(Serializable id);
 

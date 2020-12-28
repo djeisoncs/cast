@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(schema = Constantes.SCHEMA_CAST, name = "tb_curso")
-public class Curso extends AbstractPersistable<UUID> implements Serializable {
+public class Curso extends Entidade implements Serializable {
 
     @Column
     private String descricao;

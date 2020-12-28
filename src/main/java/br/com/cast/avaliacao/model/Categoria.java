@@ -21,7 +21,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(schema = Constantes.SCHEMA_CAST, name = "tb_categoria")
-public class Categoria extends AbstractPersistable<UUID> implements Serializable {
+public class Categoria extends Entidade implements Serializable {
 
     @Column
     private Integer codigo;

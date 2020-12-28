@@ -1,6 +1,7 @@
 package br.com.cast.avaliacao.service;
 
 import br.com.cast.avaliacao.dto.PaginacaoResultado;
+import br.com.cast.avaliacao.model.Entidade;
 import br.com.cast.avaliacao.paginacao.Paginacao;
 import br.com.cast.avaliacao.repository.RepositoryConsultarImpl;
 import br.com.cast.avaliacao.service.interfaces.IServiceConsultar;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by djeison.cassimiro on 27/12/2020
  */
-public abstract class ServiceConsultarImpl<E extends AbstractPersistable> implements IServiceConsultar<E> {
+public abstract class ServiceConsultarImpl<E extends Entidade> implements IServiceConsultar<E> {
 
     @Override
     public E get(Serializable id) { return getRepository().get(id); }

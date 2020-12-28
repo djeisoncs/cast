@@ -1,6 +1,7 @@
 package br.com.cast.avaliacao.repository;
 
 import br.com.cast.avaliacao.i18n.MensagemI18N;
+import br.com.cast.avaliacao.model.Entidade;
 import br.com.cast.avaliacao.model.Status;
 import br.com.cast.avaliacao.repository.interfaces.IRepository;
 import br.com.cast.avaliacao.util.NegocioException;
@@ -25,7 +26,7 @@ import java.util.*;
  * Created by djeison.cassimiro on 26/12/2020
  */
 @Transactional
-public abstract class RepositoryImpl<E extends AbstractPersistable> extends RepositoryConsultarImpl<E> implements IRepository<E> {
+public abstract class RepositoryImpl<E extends Entidade> extends RepositoryConsultarImpl<E> implements IRepository<E> {
 
     protected final Session getSession(){
         return getEntityManager().unwrap(Session.class);
@@ -137,6 +138,7 @@ public abstract class RepositoryImpl<E extends AbstractPersistable> extends Repo
     @Override
     public void salvar(E entidade)throws NegocioException {
         beforeSalvarAlterar(entidade);
+        entidade.ativar();
 
         getEntityManager().persist(entidade);
         getEntityManager().flush();
@@ -155,7 +157,20 @@ public abstract class RepositoryImpl<E extends AbstractPersistable> extends Repo
     }
 
     @Override
-    public void excluir(Serializable id)throws NegocioException {
+    public void excluir(UUID id)throws NegocioException {
+        try {
+            E entidade = this.entidadeClass().newInstance();
+            entidade.setId(id);
+            entidade.desativar();
+            alterar(entidade);
+
+        }catch (Exception e){
+            throw NegocioException.build(MensagemI18N.getKey("operacao.excluir.falha"));
+        }
+    }
+
+    @Override
+    public void excluirDefinitivamente(Serializable id) {
         E entidade = getEntityManager().find(entidadeClass(), id);
         getEntityManager().remove(entidade);
         getEntityManager().flush();

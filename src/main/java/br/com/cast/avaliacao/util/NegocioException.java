@@ -42,6 +42,10 @@ public class NegocioException extends Exception {
         return this;
     }
 
+    public String getMensagensSeparadosPorLinhas(){
+        return mensagens.stream().reduce("", (valorReduzido,valor) -> valorReduzido+valor+"\n");
+    }
+
     public void lancar() throws NegocioException {
         if (!mensagens.isEmpty()) {
             throw this;
