@@ -6,6 +6,9 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.UUID;
@@ -18,6 +21,8 @@ import java.util.UUID;
 @Setter
 public class Entidade extends AbstractPersistable<UUID> implements Serializable {
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column
     private Status status;
     private UUID id;
 

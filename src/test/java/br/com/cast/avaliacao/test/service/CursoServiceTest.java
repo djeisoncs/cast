@@ -1,5 +1,6 @@
 package br.com.cast.avaliacao.test.service;
 
+import br.com.cast.avaliacao.i18n.MensagemI18N;
 import br.com.cast.avaliacao.model.Categoria;
 import br.com.cast.avaliacao.model.Curso;
 import br.com.cast.avaliacao.service.CategoriaService;
@@ -54,11 +55,102 @@ public class CursoServiceTest extends AplicacaoTest {
         }
     }
 
+    @Test(description = "Teste responsável tentar salvar um curso para uma data planejada em outro curso cadastrado anteriormente")
+    public void salvar_com_periodo__planejado_em_outro_curso() throws NegocioException {
+        Curso curso = getEntidade();
+
+        service.salvar(curso);
+
+        try {
+            Curso cursoComPeriodoInvalido = getEntidade();
+            cursoComPeriodoInvalido.setDescricao("Curso Periodo inválido");
+            try {
+                service.salvar(cursoComPeriodoInvalido);
+                service.excluirDefinitivamente(cursoComPeriodoInvalido.getId());
+                Assert.fail("Não deveria ser possível salvar dois cursos dentro do mesmo periodo");
+            } catch (NegocioException e) {
+                Assert.assertEquals(e.getMensagensSeparadosPorLinhas().replace("\n",""), MensagemI18N.getKey("curso.regraNegocio.inclusaoDentroDoMesmoPeriodo"));
+            }
+
+        } finally {
+            service.excluirDefinitivamente(curso.getId());
+        }
+    }
+
+    @Test(description = "Teste responsável por editar um curso")
+    public void alterar() throws NegocioException {
+        Curso curso = getEntidade();
+
+        service.salvar(curso);
+
+        String descricao = "Curso com descrição alterada";
+
+        try {
+            curso.setDescricao(descricao);
+
+            service.alterar(curso);
+            Curso consultado = service.get(curso.getId());
+
+            Assert.assertNotNull(consultado);
+            Assert.assertTrue(consultado.isAtivo());
+            Assert.assertEquals(consultado.getDescricao(), descricao);
+        } finally {
+            service.excluirDefinitivamente(curso.getId());
+        }
+    }
+
+    @Test(description = "Teste responsável por tentar editar um curso para uma data planejada em outro curso cadastrado anteriormente")
+    public void alterar_curso_para_periodo_planejado_em_outro_curso() throws NegocioException {
+        Curso curso = getEntidade();
+        service.salvar(curso);
+
+        Curso segundoCurso = getEntidade();
+        segundoCurso.setDescricao("Descrição segundo curso");
+        segundoCurso.setDataInicio(DateUtil.somarDiasAData(segundoCurso.getDataTermino(), 1));
+        segundoCurso.setDataTermino(DateUtil.somarDiasAData(segundoCurso.getDataTermino(), 2));
+        service.salvar(segundoCurso);
+
+        try {
+            segundoCurso.setDataInicio(curso.getDataInicio());
+
+            try {
+                service.alterar(segundoCurso);
+                Assert.fail("Não deveria ser possível salvar dois cursos dentro do mesmo periodo");
+            } catch (NegocioException e) {
+                Assert.assertEquals(e.getMensagensSeparadosPorLinhas().replace("\n",""), MensagemI18N.getKey("curso.regraNegocio.inclusaoDentroDoMesmoPeriodo"));
+            }
+
+        } finally {
+            service.excluirDefinitivamente(curso.getId());
+            service.excluirDefinitivamente(segundoCurso.getId());
+        }
+
+
+    }
+
+    @Test(description = "Teste responsável por excluir uma categoria")
+    public void excluir() throws NegocioException {
+        Curso curso = getEntidade();
+
+        service.salvar(curso);
+        try {
+            service.excluir(curso.getId());
+        } catch (NegocioException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Assert.assertNull(service.get(curso.getId()));
+        } finally {
+            service.excluirDefinitivamente(curso.getId());
+        }
+    }
+
     private Curso getEntidade() {
         Curso curso = new Curso();
 
         curso.setCategoria(categoria);
-        curso.setDataInicio(new Date(System.currentTimeMillis()));
+        curso.setDataInicio(DateUtil.zerarHoraData(new Date(System.currentTimeMillis())));
         curso.setDataTermino(DateUtil.somarDiasAData(curso.getDataInicio(), 1));
         curso.setDescricao("Descrição - CursoServiceTest");
 

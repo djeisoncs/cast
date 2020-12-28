@@ -162,7 +162,7 @@ public abstract class RepositoryImpl<E extends Entidade> extends RepositoryConsu
             E entidade = this.entidadeClass().newInstance();
             entidade.setId(id);
             entidade.desativar();
-            alterar(entidade);
+            alterarAtributos(entidade, "status");
 
         }catch (Exception e){
             throw NegocioException.build(MensagemI18N.getKey("operacao.excluir.falha"));

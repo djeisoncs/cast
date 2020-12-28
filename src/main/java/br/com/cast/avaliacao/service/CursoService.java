@@ -4,6 +4,7 @@ import br.com.cast.avaliacao.i18n.MensagemI18N;
 import br.com.cast.avaliacao.model.Curso;
 import br.com.cast.avaliacao.repository.CursoRepository;
 import br.com.cast.avaliacao.repository.RepositoryImpl;
+import br.com.cast.avaliacao.util.DateUtil;
 import br.com.cast.avaliacao.util.NegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CursoService extends ServiceImpl<Curso> {
     protected NegocioException getRegrasBeforeSalvarAlterar(Curso entidade) {
         NegocioException negocioException = NegocioException.build();
 
-        if (Objects.isNull(entidade.getDataInicio()) || entidade.getDataInicio().before(new Date())) {
+        if (Objects.isNull(entidade.getDataInicio()) || entidade.getDataInicio().before(DateUtil.zerarHoraData(new Date(System.currentTimeMillis())))) {
             negocioException.addMensagem(MensagemI18N.getKey("curso.regraNegocio.dataInicioMenorQueHoje"));
         }
 
