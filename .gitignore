@@ -2,4 +2,9 @@
 /bin/
 /.idea/
 *.iml
+*.yml
 target
+*.xls
+
+*.classpath
+*.project
