@@ -88,7 +88,7 @@ public class CursoServiceTest extends AplicacaoTest {
         try {
             curso.setDescricao(descricao);
 
-            service.alterar(curso);
+            service.editar(curso);
             Curso consultado = service.get(curso.getId());
 
             Assert.assertNotNull(consultado);
@@ -114,7 +114,7 @@ public class CursoServiceTest extends AplicacaoTest {
             segundoCurso.setDataInicio(curso.getDataInicio());
 
             try {
-                service.alterar(segundoCurso);
+                service.editar(segundoCurso);
                 Assert.fail("Não deveria ser possível salvar dois cursos dentro do mesmo periodo");
             } catch (NegocioException e) {
                 Assert.assertEquals(e.getMensagensSeparadosPorLinhas().replace("\n",""), MensagemI18N.getKey("curso.regraNegocio.inclusaoDentroDoMesmoPeriodo"));
