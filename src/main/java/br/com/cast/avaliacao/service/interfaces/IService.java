@@ -13,7 +13,7 @@ public interface IService<E extends Entidade> extends IServiceConsultar<E> {
 
     void salvar(E entidade) throws NegocioException;
 
-    void alterar(E entidade) throws NegocioException;
+    void editar(E entidade) throws NegocioException;
 
     void excluir(UUID id) throws NegocioException;
 
