@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * Created by djeison.cassimiro on 28/12/2020
  */
-public abstract class ControllerImpl<T extends Entidade, ID extends Serializable> extends BaseController {
+public abstract class ControllerImpl<T extends Entidade, ID extends Serializable> extends ControllerConsultarImpl<T, ID> {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
