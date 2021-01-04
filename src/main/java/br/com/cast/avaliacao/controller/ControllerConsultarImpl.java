@@ -25,6 +25,7 @@ public abstract class ControllerConsultarImpl<T extends Entidade, ID extends Ser
     public List<T> listar() { return getService().listar(); }
 
     @POST
+    @Path("/listar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public PaginacaoResultado<T> listar(Paginacao paginacao) { return getService().listar(paginacao); }
