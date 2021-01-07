@@ -23,7 +23,7 @@ public abstract class ServiceImpl<E extends Entidade> extends ServiceConsultarIm
     }
 
     @Override
-    public void alterar(E entidade) throws NegocioException {
+    public void editar(E entidade) throws NegocioException {
         beforeSalvarAlterar(entidade);
 
         getRepository().alterar(entidade);
