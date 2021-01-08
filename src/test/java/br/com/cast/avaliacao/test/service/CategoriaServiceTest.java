@@ -28,7 +28,7 @@ public class CategoriaServiceTest extends AplicacaoTest {
             Assert.assertNotNull(consultado);
             Assert.assertTrue(consultado.isAtivo());
         } finally {
-            service.excluirDefinitivamente(categoria.getId());
+            service.excluir(categoria.getId());
         }
     }
 
@@ -40,7 +40,7 @@ public class CategoriaServiceTest extends AplicacaoTest {
 
         categoria.setDescricao("Descrição alterada");
 
-        service.alterarAtributos(categoria, "descricao");
+        service.salvar(categoria);
 
         try {
             Categoria consultado = service.get(categoria.getId());
@@ -49,7 +49,7 @@ public class CategoriaServiceTest extends AplicacaoTest {
             Assert.assertTrue(consultado.isAtivo());
             Assert.assertEquals(consultado.getDescricao(), "Descrição alterada");
         } finally {
-            service.excluirDefinitivamente(categoria.getId());
+            service.excluir(categoria.getId());
         }
     }
 
@@ -60,11 +60,8 @@ public class CategoriaServiceTest extends AplicacaoTest {
         service.salvar(categoria);
         service.excluir(categoria.getId());
 
-        try {
-            Assert.assertNull(service.get(categoria.getId()));
-        } finally {
-            service.excluirDefinitivamente(categoria.getId());
-        }
+        Assert.assertNull(service.get(categoria.getId()));
+
     }
 
     private Categoria getEntidade() {

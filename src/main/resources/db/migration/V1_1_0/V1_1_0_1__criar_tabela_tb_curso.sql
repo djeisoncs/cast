@@ -1,5 +1,6 @@
 create table castavaliacao.tb_curso (
-    id uuid not null,
+   id uuid not null,
+    status int4,
     data_inicio timestamp,
     data_termino timestamp,
     descricao varchar(255),
@@ -9,6 +10,6 @@ create table castavaliacao.tb_curso (
 );
 
 alter table castavaliacao.tb_curso
-add constraint FK7d8p490x40dinsvaa9slj4s6c
-foreign key (id_categoria)
-references castavaliacao.tb_categoria;
+   add constraint FK7d8p490x40dinsvaa9slj4s6c
+   foreign key (id_categoria)
+   references castavaliacao.tb_categoria;

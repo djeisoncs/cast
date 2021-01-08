@@ -36,7 +36,7 @@ public class CursoServiceTest extends AplicacaoTest {
     @Override
     public void onAfterClass() throws NegocioException {
         super.onAfterClass();
-        categoriaService.excluirDefinitivamente(categoria.getId());
+        categoriaService.excluir(categoria.getId());
     }
 
     @Test(description = "Teste resposável por salvar um curso")
@@ -51,7 +51,7 @@ public class CursoServiceTest extends AplicacaoTest {
             Assert.assertNotNull(consultado);
             Assert.assertTrue(consultado.isAtivo());
         } finally {
-            service.excluirDefinitivamente(curso.getId());
+            service.excluir(curso.getId());
         }
     }
 
@@ -66,14 +66,14 @@ public class CursoServiceTest extends AplicacaoTest {
             cursoComPeriodoInvalido.setDescricao("Curso Periodo inválido");
             try {
                 service.salvar(cursoComPeriodoInvalido);
-                service.excluirDefinitivamente(cursoComPeriodoInvalido.getId());
+                service.excluir(cursoComPeriodoInvalido.getId());
                 Assert.fail("Não deveria ser possível salvar dois cursos dentro do mesmo periodo");
             } catch (NegocioException e) {
                 Assert.assertEquals(e.getMensagensSeparadosPorLinhas().replace("\n",""), MensagemI18N.getKey("curso.regraNegocio.inclusaoDentroDoMesmoPeriodo"));
             }
 
         } finally {
-            service.excluirDefinitivamente(curso.getId());
+            service.excluir(curso.getId());
         }
     }
 
@@ -95,7 +95,7 @@ public class CursoServiceTest extends AplicacaoTest {
             Assert.assertTrue(consultado.isAtivo());
             Assert.assertEquals(consultado.getDescricao(), descricao);
         } finally {
-            service.excluirDefinitivamente(curso.getId());
+            service.excluir(curso.getId());
         }
     }
 
@@ -121,8 +121,8 @@ public class CursoServiceTest extends AplicacaoTest {
             }
 
         } finally {
-            service.excluirDefinitivamente(curso.getId());
-            service.excluirDefinitivamente(segundoCurso.getId());
+            service.excluir(curso.getId());
+            service.excluir(segundoCurso.getId());
         }
 
 
@@ -133,17 +133,9 @@ public class CursoServiceTest extends AplicacaoTest {
         Curso curso = getEntidade();
 
         service.salvar(curso);
-        try {
-            service.excluir(curso.getId());
-        } catch (NegocioException e) {
-            e.printStackTrace();
-        }
+        service.excluir(curso.getId());
 
-        try {
-            Assert.assertNull(service.get(curso.getId()));
-        } finally {
-            service.excluirDefinitivamente(curso.getId());
-        }
+        Assert.assertNull(service.get(curso.getId()));
     }
 
     private Curso getEntidade() {

@@ -1,9 +1,10 @@
 package br.com.cast.avaliacao.service;
 
 import br.com.cast.avaliacao.model.Entidade;
-import br.com.cast.avaliacao.repository.RepositoryImpl;
+import br.com.cast.avaliacao.model.Status;
 import br.com.cast.avaliacao.service.interfaces.IService;
 import br.com.cast.avaliacao.util.NegocioException;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -17,7 +18,7 @@ public abstract class ServiceImpl<E extends Entidade> extends ServiceConsultarIm
     public void salvar(E entidade) throws NegocioException {
         beforeSalvarAlterar(entidade);
 
-        getRepository().salvar(entidade);
+        getRepository().save(entidade);
 
         afterSalvarAlterar(entidade);
     }
@@ -26,7 +27,7 @@ public abstract class ServiceImpl<E extends Entidade> extends ServiceConsultarIm
     public void editar(E entidade) throws NegocioException {
         beforeSalvarAlterar(entidade);
 
-        getRepository().alterar(entidade);
+        getRepository().save(entidade);
 
         afterSalvarAlterar(entidade);
     }
@@ -35,20 +36,13 @@ public abstract class ServiceImpl<E extends Entidade> extends ServiceConsultarIm
     public void excluir(UUID id) throws NegocioException {
         beforeExcluir(id);
 
-        getRepository().excluir(id);
+        getRepository().deleteById(id);
     }
 
-    @Override
-    public void excluirDefinitivamente(Serializable id) throws NegocioException {
-        beforeExcluir(id);
-
-        getRepository().excluirDefinitivamente(id);
+    protected void beforeSalvarAlterar(E entidade) throws NegocioException {
+        entidade.setStatus(Status.ATIVO);
+        getRegrasBeforeSalvarAlterar(entidade).lancar();
     }
-
-    @Override
-    public void alterarAtributos(E entidade, String... atributos) { getRepository().alterarAtributos(entidade, atributos); }
-
-    protected void beforeSalvarAlterar(E entidade) throws NegocioException { getRegrasBeforeSalvarAlterar(entidade).lancar(); }
 
     protected NegocioException getRegrasBeforeSalvarAlterar(E entidade) { return NegocioException.build(); }
 
@@ -56,5 +50,5 @@ public abstract class ServiceImpl<E extends Entidade> extends ServiceConsultarIm
 
     protected void beforeExcluir(Serializable id) throws NegocioException { NegocioException.build().lancar(); }
 
-    protected abstract RepositoryImpl<E> getRepository();
+    protected abstract JpaRepository<E, UUID> getRepository();
 }

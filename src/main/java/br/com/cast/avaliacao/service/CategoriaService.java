@@ -2,9 +2,11 @@ package br.com.cast.avaliacao.service;
 
 import br.com.cast.avaliacao.model.Categoria;
 import br.com.cast.avaliacao.repository.CategoriaRepository;
-import br.com.cast.avaliacao.repository.RepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 /**
  * Created by djeison.cassimiro on 27/12/2020
@@ -16,5 +18,5 @@ public class CategoriaService extends ServiceImpl<Categoria> {
     private CategoriaRepository repository;
 
     @Override
-    protected RepositoryImpl<Categoria> getRepository() { return repository; }
+    protected JpaRepository<Categoria, UUID> getRepository() { return repository; }
 }

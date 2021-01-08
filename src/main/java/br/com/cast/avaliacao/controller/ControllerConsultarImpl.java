@@ -24,22 +24,22 @@ public abstract class ControllerConsultarImpl<T extends Entidade, ID extends Ser
     @Produces(MediaType.APPLICATION_JSON)
     public List<T> listar() { return getService().listar(); }
 
-    @POST
-    @Path("/listar")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public PaginacaoResultado<T> listar(Paginacao paginacao) { return getService().listar(paginacao); }
-
-    @SuppressWarnings("RestParamTypeInspection")
-    @GET
-    @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response dtoGet(@PathParam("id") ID id) {
-        T entidade = getService().get(id);
-
-        return createRespondeGetEntity(entidade);
-    }
+//    @POST
+//    @Path("/listar")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public PaginacaoResultado<T> listar(Paginacao paginacao) { return getService().listar(paginacao); }
+//
+//    @SuppressWarnings("RestParamTypeInspection")
+//    @GET
+//    @Path("/{id}")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response dtoGet(@PathParam("id") ID id) {
+//        T entidade = getService().get(id);
+//
+//        return createRespondeGetEntity(entidade);
+//    }
 
     public Response createRespondeGetEntity(T entidade) {
         Response response;
