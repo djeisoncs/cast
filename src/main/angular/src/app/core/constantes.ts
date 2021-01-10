@@ -10,7 +10,22 @@ export const constantes = {
   },
 
   paths: {
-
+    academico: {
+      categoria: {
+        basePath: 'academico/categoria',
+        listar: 'academico/categoria/listar',
+        cadastrar: 'academico/categoria/cadastrar',
+        editar: 'academico/categoria/editar/:id',
+        consultar: 'academico/categoria/consultar/:id'
+      },
+      curso: {
+        basePath: 'academico/curso',
+        listar: 'academico/curso/listar',
+        cadastrar: 'academico/curso/cadastrar',
+        editar: 'academico/curso/editar/:id',
+        consultar: 'academico/curso/consultar/:id'
+      }
+    },
   },
 
   classes: {

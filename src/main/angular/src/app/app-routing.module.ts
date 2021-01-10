@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {AcademicoRoute} from "./academico/academico.route";
 
 
 export const routes: Routes = [
   {
     path: '',
     children: [
-
+      ...AcademicoRoute
     ]
   }
 ];
