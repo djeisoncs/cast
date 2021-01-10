@@ -11,6 +11,9 @@ export const constantes = {
 
   paths: {
     academico: {
+      inicio: {
+        basePath: 'academico/inicio',
+      },
       categoria: {
         basePath: 'academico/categoria',
         listar: 'academico/categoria/listar',
