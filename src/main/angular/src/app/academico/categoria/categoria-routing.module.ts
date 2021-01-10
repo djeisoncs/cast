@@ -6,7 +6,7 @@ import {CategoriaCadastroComponent} from './cadastro/categoria-cadastro.componen
 
 const routes: Routes = [
   {path: '', component: CategoriaListarComponent},
-  {path: 'cadatrar', component: CategoriaCadastroComponent},
+  {path: 'cadastrar', component: CategoriaCadastroComponent},
   {path: 'editar/:id', component: CategoriaCadastroComponent}
 ];
 

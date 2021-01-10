@@ -6,7 +6,7 @@ import {CursoCadastroComponent} from './cadastro/curso-cadastro.component';
 
 const routes: Routes = [
   {path: '', component: CursoListarComponent},
-  {path: 'cadatrar', component: CursoCadastroComponent},
+  {path: 'cadastrar', component: CursoCadastroComponent},
   {path: 'editar/:id', component: CursoCadastroComponent}
 ];
 
