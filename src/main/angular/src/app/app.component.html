@@ -1,0 +1,13 @@
+<ng-template #routerOutlet>
+  <router-outlet></router-outlet>
+</ng-template>
+
+
+<div id="layout-wrapper">
+
+  <ng-container>
+    <app-layout-operacao>
+      <ng-container *ngTemplateOutlet="routerOutlet"></ng-container>
+    </app-layout-operacao>
+  </ng-container>
+</div>
