@@ -1,12 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {CursoBaseComponent} from "../curso-base.component";
+import {BaseCrudComponentProviderService} from "../../../core/base/crud-compenent/base-crud-component-provider.service";
+import {CursoService} from "../curso.service";
+import {Curso} from "../curso";
 
 @Component({
   selector: 'app-curso-listar',
   templateUrl: './curso-listar.component.html'
 })
-export class CursoListarComponent implements OnInit {
+export class CursoListarComponent extends CursoBaseComponent {
 
-  constructor() { }
+  entidades: Curso[] = [];
+
+  constructor(
+    crudProvider: BaseCrudComponentProviderService,
+    protected service: CursoService
+  ) {
+    super(crudProvider, service);
+  }
 
   ngOnInit() {
   }
